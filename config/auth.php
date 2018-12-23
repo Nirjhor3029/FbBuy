@@ -40,11 +40,34 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
         ],
+
+        /*Change for guard : 23-12-18*/
+        //admin
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'admin-api' => [
+            'driver' => 'token',
+            'provider' => 'admins',
+        ],
+
+        //seller/vendor
+        'vendor' => [
+            'driver' => 'session',
+            'provider' => 'vendors',
+        ],
+        'vendor-api' => [
+            'driver' => 'token',
+            'provider' => 'vendors',
+        ],
+        /*End-of Change for guard*/
+
+
     ],
 
     /*
@@ -74,6 +97,19 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        /*Change for guard : 23-12-18*/
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
+        ],
+
+        'vendors' => [
+            'driver' => 'eloquent',
+            'model' => App\Vendor::class,
+        ],
+        /*End-of Change for guard*/
+
     ],
 
     /*
@@ -95,8 +131,24 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
-            'expire' => 60,
+            'expire' => 60, /*60 minutes*/
         ],
+
+        /*Change for guard : 23-12-18*/
+        //admin
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 15, /*15 minutes*/
+        ],
+
+        //seller/vendor
+        'vendors' => [
+            'provider' => 'vendors',
+            'table' => 'password_resets',
+            'expire' => 30, /*30 minutes*/
+        ],
+        /*End-of Change for guard*/
     ],
 
 ];

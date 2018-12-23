@@ -1,3 +1,6 @@
+<?php
+    $app_name = "FbBuy+1";
+?>
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
@@ -8,7 +11,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    {{--<title>{{ config('app.name', 'FbBuy+1') }}</title>--}}
+    <title>{{ $app_name}}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -29,7 +33,8 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{--{{ config('app.name', 'FbBuy+1') }}--}}
+                        {{ $app_name }}
                     </a>
                 </div>
 
