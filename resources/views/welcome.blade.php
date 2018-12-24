@@ -77,8 +77,17 @@
                 </div>
             @endif
 
-            <div class="content">
-                <div class="title m-b-md">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        @component('components.who')
+                        @endcomponent
+                    </div>
+                </div>
+
+
+                {{--<div class="title m-b-md">
                     Nirjhor
                 </div>
 
@@ -88,7 +97,7 @@
                     <a href="https://laravel-news.com">News</a>
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                </div>--}}
             </div>
         </div>
     </body>
