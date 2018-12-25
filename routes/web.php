@@ -20,6 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 //Route::get('')
 
@@ -34,6 +35,8 @@ Route::prefix('admin')->group(function(){
     Route::post('/login','Auth\AdminLoginController@login')->name('admin.login.submit');
 
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
+
+    Route::get('/logout', 'Auth\AdminLoginController@adminLogout')->name('admin.logout');
 });
 /*end of admin routes*/
 
@@ -45,6 +48,8 @@ Route::prefix('vendor')->group(function(){
     Route::post('/login','Auth\VendorLoginController@login')->name('vendor.login.submit');
 
     Route::get('/', 'VendorController@index')->name('vendor.dashboard');
+    Route::get('/logout', 'Auth\VendorLoginController@vendorLogout')->name('vendor.logout');
+
 });
 /*end of admin routes*/
 

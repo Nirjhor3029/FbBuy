@@ -16,6 +16,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/user.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/basic.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -58,15 +60,20 @@
 
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{ route('logout') }}"
+
+                                        {{--logout withour form - nir--}}
+                                        <a href="{{ route('user.logout') }}">Logout</a>
+                                        {{--End of logout withour form - nir--}}
+
+                                        {{--<a href="{{ route('user.logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             Logout
-                                        </a>
+                                        </a>--}}
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{--<form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
-                                        </form>
+                                        </form>--}}
                                     </li>
                                 </ul>
                             </li>

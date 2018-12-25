@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class VendorLoginController extends Controller
 {
 
 
     public function __construct(){
-        $this->middleware('guest:admin'); //admin is the guard level
+        //$this->middleware('guest:vendor'); //vendor is the guard level
+
+        $except = ["logout","vendorLogout"];
+        $this->middleware('guest:vendor')->except($except);
     }
 
     public function showLoginForm(){
@@ -43,6 +47,15 @@ class VendorLoginController extends Controller
         return redirect()->back()->withInput($request->only('email','remember'));
 
 
+    }
+
+    public function vendorLogout()
+    {
+        Auth::guard('vendor')->logout();
+
+        //$request->session()->invalidate();  //if we flush the session then all session will be delete which we don't need any more.
+
+        return redirect('/');
     }
 
 

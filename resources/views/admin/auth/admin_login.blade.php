@@ -6,7 +6,7 @@
  * Time: 1:54 PM
  */
 ?>
-@extends('layouts.app')
+@extends('layouts.admin_app')
 
 @section('content')
     <div class="container">

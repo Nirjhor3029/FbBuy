@@ -11,7 +11,10 @@ class AdminLoginController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('guest:admin'); //admin is the guard level
+        //$this->middleware('guest:admin'); //admin is the guard level
+
+        $except = ["logout","adminLogout"];
+        $this->middleware('guest:admin')->except($except);
     }
 
     public function showLoginForm(){
@@ -43,6 +46,18 @@ class AdminLoginController extends Controller
 
 
     }
+
+
+    public function adminLogout()
+    {
+        Auth::guard('admin')->logout();
+
+        //$request->session()->invalidate();  //if we flush the session then all session will be delete which we don't need any more.
+
+        return redirect('/');
+    }
+
+
 
 
 
