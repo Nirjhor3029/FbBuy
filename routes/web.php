@@ -47,6 +47,9 @@ Route::prefix('vendor')->group(function(){
     Route::get('/login','Auth\VendorLoginController@showLoginForm')->name('vendor.login');
     Route::post('/login','Auth\VendorLoginController@login')->name('vendor.login.submit');
 
+    Route::get('/register','Auth\VendorLoginController@showRegisterForm')->name('vendor.register');
+    Route::post('/register','Auth\VendorLoginController@register')->name('vendor.register.submit');
+
     Route::get('/', 'VendorController@index')->name('vendor.dashboard');
     Route::get('/logout', 'Auth\VendorLoginController@vendorLogout')->name('vendor.logout');
 
