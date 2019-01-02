@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Vendor;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+
+
+
 
 class VendorLoginController extends Controller
 {
@@ -25,7 +30,7 @@ class VendorLoginController extends Controller
 
     public function login(Request $request){
 
-        //echo "hi admin";
+        //echo "hi vendor";
         //exit;
         //validate the form data
         $this->validate($request,[
@@ -74,7 +79,17 @@ class VendorLoginController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        return $status;
+        Vendor::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+        ]);
+
+        //$this->login($request);
+
+        //return $status;
+
+        return Redirect::to('vendor/login');
 
     }
 

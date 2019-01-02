@@ -53,6 +53,8 @@ Route::prefix('vendor')->group(function(){
     Route::get('/', 'VendorController@index')->name('vendor.dashboard');
     Route::get('/logout', 'Auth\VendorLoginController@vendorLogout')->name('vendor.logout');
 
+
+
 });
 /*end of admin routes*/
 

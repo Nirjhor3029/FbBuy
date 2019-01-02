@@ -8,7 +8,7 @@
 ?>
 
 
-@extends('layouts.app')
+@extends('layouts.vendor_app')
 
 @section('content')
     <div class="container">
@@ -26,6 +26,10 @@
 
                         @component('components.who')
                         @endcomponent
+
+                        <button class="btn btn-primary">Login With Facebook</button>
+
+
                     </div>
                 </div>
             </div>
