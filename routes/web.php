@@ -60,7 +60,27 @@ Route::prefix('vendor')->group(function(){
 
 
 
+
+
+
+
 /*facebook-Routes*/
+
+/*Route::get('/login/facebook', function(){
+    echo "ok";
+})->name('login.facebook');*/
+Route::get('/login/facebook', 'Auth\LoginController@redirectToFacebookProvider')->name('login.facebook');
+
+Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebookCallback')->name('login.facebook.callback');
+
+Route::group(['middleware' => ['auth']], function(){
+
+    Route::get('/userprofile', 'GraphController@retrieveUserProfile');
+
+});
+
+
+
 Route::get('/facebook_messenger_api','MessangerController@index');
 Route::post('/facebook_messenger_api','MessangerController@index');
 /*end of facebook-Routes*/

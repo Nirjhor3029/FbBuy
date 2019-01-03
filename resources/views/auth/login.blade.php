@@ -62,6 +62,14 @@
                         </div>
                     </form>
                 </div>
+
+                <div class="panel-heading">Login with Facebook</div>
+                <div class="panel-body">
+                    <a class="btn btn-primary" href="{{route('login.facebook')}}">
+                        Facebook Login
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>
