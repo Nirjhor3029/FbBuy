@@ -22,7 +22,7 @@ class GraphController extends Controller
     }
 
     public function retrieveUserProfile(Facebook $fb){
-        
+
 
 
         //echo "Yeaaaa !! ";

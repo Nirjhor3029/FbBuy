@@ -1,0 +1,30 @@
+1. set our routes
+    a. set same routes to get and post.
+
+2. Need to create a controller
+    a. inside of our controller create a index() method.
+
+
+3. Now lets setup our .env file for configure facebook webhook credential
+
+4. configure facebook:
+    a.  create a page [admin]
+    b.  create an app in developers.facebook.com
+        1. add product messenger and collect page access token from there login as admin
+        2. select page and copy the page access token  which generated and paste it on .env  file.
+
+
+
+
+
+
+5. **Now setup our webhooks.
+    a. share a valid url .. [https://3d251ba8.ngrok.io/nirjhor_xamp/fbBuy/public/facebook_messenger_api]
+    2. now match and echo the request('hub_challenge') ... [ complex ? : see the verifyAccess() method in  MessangerController ]
+    3. now paste the call back url + verify_token (variable) + selects all permission u need .  and click for verify. []
+
+6. we need to subscribe the page .
+7. we can now set up a bot message.
+8.
+9.
+10.let's except the route that we create. [app->http->middleware->VerifyCsrfToken.php]

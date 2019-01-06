@@ -1,0 +1,30 @@
+messanger messaging:
+====================
+https://developers.facebook.com/docs/messenger-platform/reference/send-api
+
+
+Request URI
+https://graph.facebook.com/v2.6/me/messages?access_token=<PAGE_ACCESS_TOKEN>
+Example Request
+curl -X POST -H "Content-Type: application/json" -d '{
+  "messaging_type": "<MESSAGING_TYPE>",
+  "recipient": {
+    "id": "<PSID>"    
+  },
+  "message": {
+    "text": "hello, world!"
+  }
+}' "https://graph.facebook.com/v2.6/me/messages?access_token=<PAGE_ACCESS_TOKEN>"
+    
+
+We need to genarate PSID. [working ... ]
+	a. https://www.youtube.com/watch?v=wICdDkaS7Ek [vdo tutorials]
+		1.webhooks [https://developers.facebook.com/docs/graph-api/webhooks/]
+
+
+https://www.youtube.com/watch?v=8inW2sagQz0&index=3&list=PLYxzS__5yYQmKiSXXFxrgQ6_Ox0lHvExH
+
+
+now watching:-
+==================
+https://www.youtube.com/watch?v=rwdL2SdVy78

@@ -83,5 +83,10 @@ Route::group(['middleware' => ['auth']], function(){
 
 Route::get('/facebook_messenger_api','MessangerController@index');
 Route::post('/facebook_messenger_api','MessangerController@index');
+
+
+Route::get('/webhook','MessangerController@webhook');
+
+Route::get('/test','MessangerController@test');
 /*end of facebook-Routes*/
 
