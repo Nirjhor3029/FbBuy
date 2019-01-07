@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\RoughTest;
 use Illuminate\Http\Request;
 
 class MessangerController extends Controller
@@ -13,6 +14,71 @@ class MessangerController extends Controller
      */
     public function index()
     {
+
+
+        $feedData = file_get_contents('php://input');
+
+        //save the feedback to database
+        /*$rough_test = new RoughTest();
+        $rough_test->json = $feedData;
+        $rough_test->save();*/
+
+        $data = json_decode($feedData);
+
+        if($data->object == "page"){
+            //$comment_id = $data->entry[0]->changes[0]->value->from->name;
+            $comment_id = $data->entry[0]->changes[0]->value->comment_id;
+
+            //page access token
+            $accessToken = "EAAaIKirgOfkBABZCrKHLZA9ZB9bxhYXTykLaPWZAIuFOxjx9jYBKqNL3voKzrdFWQ4H4X24KXLisiN7gsr5zF8LfBd22JM1OBvilCiF6M6HDPwkNgtSEcZCHN6SGjlsbaaGQJCRUa5QwoibkGWLl7ipSD8B65lokIoZCUiqlsU73julnoaPX0e";
+            $reply = "Hey i have got your comment !! :) its a test :P ignore it";
+
+
+            //save the feedback to database
+            $rough_test = new RoughTest();
+            $rough_test->json = $feedData;//$comment_id;
+            $rough_test->save();
+
+            /*cURL for replying on comments by specific comment id
+                    we use cUrl to send information to one place to another just like Ajax
+
+            */
+            $ch = curl_init();
+            curl_setopt($ch,CURLOPT_POST,1);
+            curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,0); //we don't want to verify host
+            curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,0); //we also don't want to verify peer
+            curl_setopt($ch,CURLOPT_RETURNTRANSFER,1); //we want to return the transfer from this
+            curl_setopt($ch,CURLOPT_POSTFIELDS,"message=$reply&access_token=$accessToken");     //what we are sending to the facebook
+            curl_setopt($ch,CURLOPT_URL,"https://graph.facebook.com/v3.2/$comment_id/private_replies");     //what we are sending to the facebook
+
+            //the last option to set
+            curl_setopt($ch,CURLOPT_USERAGENT,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36");  //how to get user agent?-> https://www.whoishostingthis.com/tools/user-agent/
+
+            /*Now we need to execute this code handle*/
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            //save the feedback to database
+            $rough_test = new RoughTest();
+            $rough_test->json = "response:".$response;
+            $rough_test->save();
+
+
+        }
+
+        exit;
+
+
+
+        $handle = fopen('test.txt','w');
+
+        fwrite($handle,$feedData);
+        fclose($handle);
+
+        http_response_code(200);
+
+
+
         //here we can verify the webhook
 
         //i create a method for that
@@ -55,8 +121,10 @@ class MessangerController extends Controller
 
             echo request('hub_challenge');
 
-            exit;
+            //exit;
         }
+
+
     }
 
 
