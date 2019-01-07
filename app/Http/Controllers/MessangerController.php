@@ -62,7 +62,7 @@ class MessangerController extends Controller
 
     public function sendMessage($response)
     {
-        dd($response);
+        //dd($response);
         //set our post
         $ch = curl_init('https://graph.facebook.com/v3.2/me/messages?access_token='.env('PAGE_ACCESS_TOKEN'));
 

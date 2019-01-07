@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        'facebook_messenger_api'
+        'facebook_messenger_api',
+        '/nirjhor_xamp/fbBuy/public/facebook_messenger_api'
     ];
 }

@@ -28,3 +28,13 @@
 8.
 9.
 10.let's except the route that we create. [app->http->middleware->VerifyCsrfToken.php]
+
+
+
+=========== 1-7-2019 ================= https://www.youtube.com/watch?v=wICdDkaS7Ek ==================
+
+1. setup webhook from above rules in laravel then , ==>
+
+2. https://developers.facebook.com/apps/1838564549605881/webhooks/
+    a. subscribe for feed.
+
