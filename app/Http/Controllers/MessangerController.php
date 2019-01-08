@@ -15,92 +15,89 @@ class MessangerController extends Controller
     public function index()
     {
 
+        if(isset($_GET['hub_mode']) && isset($_GET['hub_challenge']) && isset($_GET['hub_verify_token'])){
 
-        $feedData = file_get_contents('php://input');
+            //here we can verify the webhook
+            //i create a method for that
+            $this->verifyAccess();
+        }
+        else{
 
-        //save the feedback to database
-        /*$rough_test = new RoughTest();
-        $rough_test->json = $feedData;
-        $rough_test->save();*/
-
-        $data = json_decode($feedData);
-
-        if($data->object == "page"){
-            //$comment_id = $data->entry[0]->changes[0]->value->from->name;
-            $comment_id = $data->entry[0]->changes[0]->value->comment_id;
-
-            //page access token
-            $accessToken = "EAAaIKirgOfkBABZCrKHLZA9ZB9bxhYXTykLaPWZAIuFOxjx9jYBKqNL3voKzrdFWQ4H4X24KXLisiN7gsr5zF8LfBd22JM1OBvilCiF6M6HDPwkNgtSEcZCHN6SGjlsbaaGQJCRUa5QwoibkGWLl7ipSD8B65lokIoZCUiqlsU73julnoaPX0e";
-            $reply = "Hey i have got your comment !! :) its a test :P ignore it";
-
-
+            $feedData = file_get_contents('php://input');
             //save the feedback to database
-            $rough_test = new RoughTest();
-            $rough_test->json = $feedData;//$comment_id;
-            $rough_test->save();
+            /*$rough_test = new RoughTest();
+            $rough_test->json = $feedData;
+            $rough_test->save();*/
 
-            /*cURL for replying on comments by specific comment id
-                    we use cUrl to send information to one place to another just like Ajax
+            $data = json_decode($feedData);
 
-            */
-            $ch = curl_init();
-            curl_setopt($ch,CURLOPT_POST,1);
-            curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,0); //we don't want to verify host
-            curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,0); //we also don't want to verify peer
-            curl_setopt($ch,CURLOPT_RETURNTRANSFER,1); //we want to return the transfer from this
-            curl_setopt($ch,CURLOPT_POSTFIELDS,"message=$reply&access_token=$accessToken");     //what we are sending to the facebook
-            curl_setopt($ch,CURLOPT_URL,"https://graph.facebook.com/v3.2/$comment_id/private_replies");     //what we are sending to the facebook
+            if($data->object == "page"){
+                //$comment_id = $data->entry[0]->changes[0]->value->from->name;
+                $comment_id = $data->entry[0]->changes[0]->value->comment_id;
 
-            //the last option to set
-            curl_setopt($ch,CURLOPT_USERAGENT,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36");  //how to get user agent?-> https://www.whoishostingthis.com/tools/user-agent/
+                //page access token
+                $accessToken = "EAAaIKirgOfkBABZCrKHLZA9ZB9bxhYXTykLaPWZAIuFOxjx9jYBKqNL3voKzrdFWQ4H4X24KXLisiN7gsr5zF8LfBd22JM1OBvilCiF6M6HDPwkNgtSEcZCHN6SGjlsbaaGQJCRUa5QwoibkGWLl7ipSD8B65lokIoZCUiqlsU73julnoaPX0e";
+                $reply = "Hey i have got your comment !! :) its a test :P ignore it";
 
-            /*Now we need to execute this code handle*/
-            $response = curl_exec($ch);
-            curl_close($ch);
 
-            //save the feedback to database
-            $rough_test = new RoughTest();
-            $rough_test->json = "response:".$response;
-            $rough_test->save();
+                //save the feedback to database
+                $rough_test = new RoughTest();
+                $rough_test->json = $feedData;//$comment_id;
+                $rough_test->save();
 
+                /*cURL for replying on comments by specific comment id
+                        we use cUrl to send information to one place to another just like Ajax
+
+                */
+                $ch = curl_init();
+                curl_setopt($ch,CURLOPT_POST,1);
+                curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,0); //we don't want to verify host
+                curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,0); //we also don't want to verify peer
+                curl_setopt($ch,CURLOPT_RETURNTRANSFER,1); //we want to return the transfer from this
+                curl_setopt($ch,CURLOPT_POSTFIELDS,"message=$reply&access_token=$accessToken");     //what we are sending to the facebook
+                curl_setopt($ch,CURLOPT_URL,"https://graph.facebook.com/v3.2/$comment_id/private_replies");     //what we are sending to the facebook
+
+                //the last option to set
+                curl_setopt($ch,CURLOPT_USERAGENT,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36");  //how to get user agent?-> https://www.whoishostingthis.com/tools/user-agent/
+
+                /*Now we need to execute this code handle*/
+                $response = curl_exec($ch);
+                curl_close($ch);
+
+                //save the feedback to database
+                $rough_test = new RoughTest();
+                $rough_test->json = "response:".$response;
+                $rough_test->save();
+
+
+            }
+
+            //exit;
+            /*$handle = fopen('test.txt','w');
+            fwrite($handle,$feedData);
+            fclose($handle);*/
+            http_response_code(200);
+
+
+
+
+            //receive the JSON from facebook
+            $input      = json_decode(file_get_contents('php://input'),true);
+
+            $id         = $input['entry'][0]['messaging'][0]['sender']['id'];
+
+            $message    = $input['entry'][0]['messaging']['message']['text'];
+
+            $response = [
+
+                'recipient'     => ['id' => $id],
+                'message'       => ['text' => 'Hello World! :)']
+            ];
+
+
+            $this->sendMessage($response);
 
         }
-
-        exit;
-
-
-
-        $handle = fopen('test.txt','w');
-
-        fwrite($handle,$feedData);
-        fclose($handle);
-
-        http_response_code(200);
-
-
-
-        //here we can verify the webhook
-
-        //i create a method for that
-        $this->verifyAccess();
-
-
-        //receive the JSON from facebook
-        $input      = json_decode(file_get_contents('php://input'),true);
-
-        $id         = $input['entry'][0]['messaging'][0]['sender']['id'];
-
-        $message    = $input['entry'][0]['messaging']['message']['text'];
-
-        $response = [
-
-            'recipient'     => ['id' => $id],
-            'message'       => ['text' => 'Hello World! :)']
-        ];
-
-
-        $this->sendMessage($response);
-
 
     }
 
