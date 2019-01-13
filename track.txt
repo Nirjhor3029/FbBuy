@@ -14,3 +14,24 @@
 
 
 mail-box id = 442074219660955
+
+
+
+1. go to my page https://www.facebook.com/Shop-442074219660955/
+2. comments any of my page post
+3.and it will send you a private message as comment response.
+
+When someone comment on our pages we want to private message them with the detail of our products and reply on their comments that, "you will get your product detail shortly."
+
+
+
+1. https://developers.facebook.com/docs/messenger-platform/send-messages/templates/
+2. https://developers.facebook.com/docs/messenger-platform/send-messages/templates/#available_templates
+3. https://developers.facebook.com/docs/messenger-platform/send-messages/buttons
+4. https://developers.facebook.com/docs/messenger-platform/send-messages/buttons
+5. https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/messaging_postbacks
+6. https://developers.facebook.com/docs/messenger-platform/webhook#setup
+7. https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/message-reads
+8. https://developers.facebook.com/docs/messenger-platform/send-messages/templates/#buttons
+9. https://developers.facebook.com/docs/messenger-platform/send-messages/template/generic/
+10.

@@ -89,5 +89,7 @@ Route::get('/webhook','MessangerController@webhook');
 
 Route::get('/test','MessangerController@test');
 Route::get('/test2','MessangerController@test2');
+
+
 /*end of facebook-Routes*/
 
