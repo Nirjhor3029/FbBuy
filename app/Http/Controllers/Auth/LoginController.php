@@ -100,7 +100,7 @@ class LoginController extends Controller
             ]
         );
 
-        //echo $auth_user->token;
+        echo $auth_user->token;
         //exit;
         Auth::login($user, true);
 

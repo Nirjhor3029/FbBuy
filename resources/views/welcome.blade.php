@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}" oncontextmenu="return false">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -79,7 +79,7 @@
 
             <div class="container">
 
-                <div class="row">
+                <div class="row" onclick="sayHello()">
                     <div class="col-md-8 col-md-offset-2">
                         @component('components.who')
                         @endcomponent
@@ -100,5 +100,27 @@
                 </div>--}}
             </div>
         </div>
+
+
+        <script>
+            //alert("hello");
+            document.onmousedown=disableclick;
+            status="Right Click Disabled";
+            function disableclick(event)
+            {
+                //alert(event.button);
+                if(event.button==2)
+                {
+                    //alert(status);
+                    console.log("sorry");
+                    return false;
+                }
+                //return false;
+            }
+
+            function sayHello(){
+                alert("hello");
+            }
+        </script>
     </body>
 </html>

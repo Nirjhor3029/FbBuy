@@ -64,8 +64,6 @@ class GraphController extends Controller
         //echo $graphNode->items;
         dd($graphNode) ;
 
-
-
     }
 
 

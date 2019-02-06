@@ -15,49 +15,58 @@ class MessangerController extends Controller
     public function index()
     {
 
-        //receive the JSON from facebook
-        $feedData = file_get_contents('php://input');
-        $this->saveToDB($feedData);
-        //exit;
+        if (isset($_GET['hub_mode']) && isset($_GET['hub_challenge']) && isset($_GET['hub_verify_token'])) {
 
-        $data = json_decode($feedData);
-        $field = $data->entry[0]->changes[0]->field;
-        //$this->saveToDB($field);
-
-        if ($field == "feed") { //all types of feed notification like,add comments,remove comments
-            $id = $data->entry[0]->changes[0]->value->from->id;
-            $name = $data->entry[0]->changes[0]->value->from->name;
-            $permalink_url = $data->entry[0]->changes[0]->value->post->permalink_url;
-            $comments_txt = $data->entry[0]->changes[0]->value->message;
-
-            //$this->saveToDB($feedData);
-            $this->saveToDB($comments_txt);
+            //here we can verify the webhook
+            //i create a method for that
+            $this->verifyAccess();
+        } else {
+            //receive the JSON from facebook
+            $feedData = file_get_contents('php://input');
 
 
-            if(preg_match("/#/",$comments_txt)){
+            $this->saveToDB($feedData);
+            //exit;
 
-                $this->saveToDB("$id");
-                $msg_for_send = "hello, $name! $permalink_url";
-                $this->sendMessage2($id, $msg_for_send);
-            }else{
+            $data = json_decode($feedData);
+            $field = $data->entry[0]->changes[0]->field;
+            //$this->saveToDB($field);
 
-                $msg_body = "it is test reply";
+            if ($field == "feed") { //all types of feed notification like,add comments,remove comments
+                $id = $data->entry[0]->changes[0]->value->from->id;
+                $name = $data->entry[0]->changes[0]->value->from->name;
+                $permalink_url = $data->entry[0]->changes[0]->value->post->permalink_url;
+                $comments_txt = $data->entry[0]->changes[0]->value->message;
 
-                $this->saveToDB("$id");
-                //$this->comments($page_accessToken,$comment_id,$msg_body);
-            }
+                //$this->saveToDB($feedData);
+                $this->saveToDB($comments_txt);
 
-        }/*else{
+
+                if(preg_match("/#/",$comments_txt)){
+
+                    $this->saveToDB("$id");
+                    $msg_for_send = "hello, $name! $permalink_url";
+                    $this->sendMessage2($id, $msg_for_send);
+                }else{
+
+                    $msg_body = "it is test reply";
+
+                    $this->saveToDB("$id");
+                    //$this->comments($page_accessToken,$comment_id,$msg_body);
+                }
+
+            }/*else{
             $this->saveToDB("message");
         }*/
+
+        }
+
 
         exit;
 
 
         //$this->verifyAccess();
-        $rough_test = new RoughTest();
-        $rough_test->json = $id;
-        $rough_test->save();
+
 
         //$message = $feedData['entry'][0]['messaging']['message']['text'];
 
@@ -166,7 +175,7 @@ class MessangerController extends Controller
 
     public function verifyAccess()
     {
-        $this->saveToDB("hello");
+        $this->saveToDB("verifyAccess");
 
         //echo "hello";
 
